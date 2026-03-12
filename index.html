@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ advanced creator · emoji scroll magic</title>
+  <!-- Tailwind + fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- AOS (animate on scroll) library for buttery scroll animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+    body { background: #0b0f1a; }
+
+    /* custom gradient banner background + overlay for channel banner section */
+    .channel-banner {
+      background: linear-gradient(145deg, #0b1120 0%, #1e2b5a 70%, #0e5f7a 100%);
+      position: relative;
+      isolation: isolate;
+    }
+    .channel-banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 40%, rgba(14,165,233,0.2) 0%, transparent 60%);
+      z-index: -1;
+    }
+    /* glassmorphism for fun cards */
+    .glass-emoji {
+      background: rgba(20, 30, 55, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      transition: all 0.2s ease;
+    }
+    .glass-emoji:hover {
+      border-color: #22d3ee;
+      box-shadow: 0 20px 35px -10px #0ea5e9;
+    }
+    /* scroll reveal overrides (AOS will do heavy lifting) */
+    [data-aos] {
+      transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    /* blinking cursor fun (tiny emoji spark) */
+    .emoji-blink::after {
+      content: '✨';
+      animation: blink 1.7s infinite;
+      margin-left: 6px;
+      font-size: 1.2rem;
+      display: inline-block;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.1); }
+    }
+    iframe {
+      transition: transform 0.3s ease, box-shadow 0.3s;
+      box-shadow: 0 10px 25px -10px #00000080;
+    }
+    iframe:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 25px 35px -12px #0ea5e9;
+    }
+    .stat-number {
+      text-shadow: 0 0 15px #0ea5e9;
+    }
+  </style>
+</head>
+<body class="text-white selection:bg-cyan-400 selection:text-slate-900">
+
+<!-- fixed navbar with slight blur -->
+<nav class="fixed top-0 w-full bg-black/50 backdrop-blur-md z-50 border-b border-white/5" data-aos="fade-down" data-aos-duration="800">
+  <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+    <h1 class="text-xl font-bold flex items-center gap-2"><span class="text-2xl">🚀</span> MukulAiDude<span class="text-cyan-400">Brand</span></h1>
+    <div class="space-x-8 hidden md:block text-sm font-medium">
+      <a href="#about" class="hover:text-cyan-300 transition-all duration-300">About</a>
+      <a href="#videos" class="hover:text-cyan-300 transition-all duration-300">Videos</a>
+      <a href="#blog" class="hover:text-cyan-300 transition-all duration-300">Blog</a>
+      <a href="#specials" class="hover:text-cyan-300 transition-all duration-300">✨Specials</a>
+      <a href="#contact" class="hover:text-cyan-300 transition-all duration-300">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- CHANNEL BANNER SECTION (custom image + overlay) -->
+<section class="channel-banner min-h-[40vh] flex items-center justify-center px-6 pt-20 pb-12 relative overflow-hidden" data-aos="zoom-in" data-aos-duration="900">
+  <div class="absolute inset-0 bg-[url('https://picsum.photos/1500/600?grayscale&seed=banner')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+  <div class="relative text-center max-w-3xl">
+    <span class="text-7xl inline-block mb-2 animate-pulse">📺</span>
+    <h2 class="text-4xl md:text-5xl font-bold drop-shadow-lg" data-aos="fade-up" data-aos-delay="150">my creative universe <span class="text-cyan-300 emoji-blink">💻</span></h2>
+    <p class="text-xl opacity-90 mt-3 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="250">code · AI · live builds & fun tutorials</p>
+    <!-- channel badge / subscribe mimic -->
+    <div class="flex flex-wrap gap-4 justify-center mt-8" data-aos="fade-up" data-aos-delay="350">
+      <span class="glass-emoji px-5 py-2 rounded-full font-semibold text-sm flex items-center gap-2">🔥 Goal - 1k subs <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span></span>
+      <span class="glass-emoji px-5 py-2 rounded-full font-semibold text-sm flex items-center gap-2">🔥 0 subs <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span></span>
+      <span class="glass-emoji px-5 py-2 rounded-full font-semibold text-sm flex items-center gap-2">⭐ 4.8</span>
+      <span class="glass-emoji px-5 py-2 rounded-full font-semibold text-sm flex items-center gap-2">📅 weekly live</span>
+    </div>
+  </div>
+</section>
+
+<!-- Hero section (already existed but keep fresh with aos) -->
+<section class="hero-bg min-h-screen flex items-center justify-center text-center px-6 relative" style="background:linear-gradient(125deg,#0f172a,#1e3a8a,#0284c7)" data-aos="fade" data-aos-duration="1200">
+  <div class="absolute inset-0 bg-black/20"></div>
+  <div class="relative z-10" data-aos="flip-up" data-aos-delay="150">
+    <h1 class="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">Building Websites & AI Projects</h1>
+    <p class="text-xl opacity-90 mb-8">Follow my journey of coding, AI tools and live builds. 🛠️🤖</p>
+    <div class="flex gap-5 justify-center flex-wrap">
+      <a href="#videos" class="bg-cyan-500 px-8 py-3 rounded-full font-semibold hover:bg-cyan-400 transition-all hover:scale-105 shadow-xl flex items-center gap-2">▶️ Watch Videos</a>
+      <a href="#contact" class="border border-white/30 px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all hover:scale-105 flex items-center gap-2">🤝 Collaborate</a>
+    </div>
+  </div>
+</section>
+
+<!-- About (with animations) -->
+<section id="about" class="max-w-6xl mx-auto py-28 px-6 grid md:grid-cols-2 gap-14 items-center">
+  <img src="https://picsum.photos/id/1043/600/500" class="rounded-3xl shadow-2xl border-4 border-slate-800/50" data-aos="fade-right" data-aos-duration="1000"/>
+  <div data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+    <h2 class="text-4xl font-bold mb-4 flex gap-2"><span>👨‍💻</span> About My Channel</h2>
+    <p class="opacity-80 mb-6 text-lg">I create videos about coding, AI tools, building websites and livestream development. My goal is to help beginners learn technology faster — with zero boring parts.</p>
+    <div class="grid grid-cols-3 gap-6 text-center mt-8">
+      <div class="bg-slate-800/60 p-4 rounded-2xl backdrop-blur-sm border border-cyan-500/20" data-aos="zoom-in" data-aos-delay="300">
+        <p class="text-3xl font-bold text-cyan-300 stat-number">10</p>
+        <p class="text-sm opacity-80">📽️ Videos</p>
+      </div>
+      <div class="bg-slate-800/60 p-4 rounded-2xl backdrop-blur-sm border border-cyan-500/20" data-aos="zoom-in" data-aos-delay="400">
+        <p class="text-3xl font-bold text-cyan-300 stat-number">1K</p>
+        <p class="text-sm opacity-80">🧡 Subscribers</p>
+      </div>
+      <div class="bg-slate-800/60 p-4 rounded-2xl backdrop-blur-sm border border-cyan-500/20" data-aos="zoom-in" data-aos-delay="500">
+        <p class="text-3xl font-bold text-cyan-300 stat-number">100k</p>
+        <p class="text-sm opacity-80">👀 Views</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Top Videos (cards with hover and aos) -->
+<section id="videos" class="bg-slate-900/70 py-28 px-6 backdrop-blur-sm">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold mb-16 text-center" data-aos="fade-down"><span class="text-cyan-400">🔥</span> top 5 popular videos <span class="text-cyan-400">🎬</span></h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- looping iframes but with aos individually -->
+      <div data-aos="fade-up" data-aos-delay="100"><iframe class="w-full h-56 rounded-2xl shadow-2xl" src="https://www.youtube.com/embed/jvRk1uZZXWA?si=xfdBR95FhalN-5IE" title="video1"></iframe></div>
+      <div data-aos="fade-up" data-aos-delay="200"><iframe class="w-full h-56 rounded-2xl shadow-2xl" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="video2"></iframe></div>
+      <div data-aos="fade-up" data-aos-delay="300"><iframe class="w-full h-56 rounded-2xl shadow-2xl" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="video3"></iframe></div>
+      <div data-aos="fade-up" data-aos-delay="400"><iframe class="w-full h-56 rounded-2xl shadow-2xl" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="video4"></iframe></div>
+      <div data-aos="fade-up" data-aos-delay="500"><iframe class="w-full h-56 rounded-2xl shadow-2xl" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="video5"></iframe></div>
+      <!-- sixth extra for grid balance? just keep 5 but will show 2nd row 2 items, it's fine -->
+    </div>
+  </div>
+</section>
+
+<!-- Blog posts with animation -->
+<section id="blog" class="max-w-6xl mx-auto py-28 px-6">
+  <h2 class="text-4xl font-bold text-center mb-6" data-aos="fade-up"><span class="text-cyan-300">✍️</span> Latest from the blog <span class="text-cyan-300">📝</span></h2>
+  <p class="text-center opacity-70 mb-16 max-w-xl mx-auto" data-aos="fade-up" data-aos-delay="100">tutorials, insights, and nerdy stuff 💾</p>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="bg-slate-800/50 p-7 rounded-3xl border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-500" data-aos="fade-right" data-aos-delay="150">
+      <span class="text-5xl">🛠️</span>
+      <h3 class="font-semibold text-xl mt-3 mb-2">How I Built My Website Live</h3>
+      <p class="text-sm opacity-80">Behind the scenes of my 12h livestream coding session with pizza & metal.</p>
+    </div>
+    <div class="bg-slate-800/50 p-7 rounded-3xl border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-500" data-aos="fade-up" data-aos-delay="200">
+      <span class="text-5xl">🤖</span>
+      <h3 class="font-semibold text-xl mt-3 mb-2">Top AI Tools for Devs</h3>
+      <p class="text-sm opacity-80">5 AI tools that boosted my coding speed by 2x (no cap).</p>
+    </div>
+    <div class="bg-slate-800/50 p-7 rounded-3xl border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-500" data-aos="fade-left" data-aos-delay="250">
+      <span class="text-5xl">📈</span>
+      <h3 class="font-semibold text-xl mt-3 mb-2">YouTube growth strategy</h3>
+      <p class="text-sm opacity-80">How I hit 50k subs in 8 months — the honest truth.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 🌟🌟🌟🌟🌟 SPECIAL ANNOUNCEMENTS SECTION (with emojis & sparkle) 🌟🌟🌟🌟🌟 -->
+<section id="specials" class="bg-gradient-to-br from-indigo-950 via-slate-900 to-cyan-950 py-24 px-6 border-y border-cyan-500/30 relative overflow-hidden">
+  <!-- animated bg emojis floating (css only) -->
+  <div class="absolute inset-0 pointer-events-none opacity-5 text-9xl flex justify-around">🎉🎊✨🚀💫</div>
+  <div class="max-w-5xl mx-auto relative z-10">
+    <div class="text-center mb-16" data-aos="zoom-in" data-aos-duration="800">
+      <span class="text-8xl inline-block mb-3 animate-bounce">📢</span>
+      <h2 class="text-5xl font-extrabold flex flex-wrap items-center justify-center gap-3"><span class="bg-yellow-300 text-black px-4 py-1 rounded-full text-2xl">🌟 NEW</span> special announcements <span class="text-cyan-300">🎁</span></h2>
+      <p class="text-xl opacity-80 mt-4">fresh drops · community news · fun stuff</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-7">
+      <!-- card 1: massive emoji fun -->
+      <div class="glass-emoji p-7 rounded-3xl flex gap-5 items-start backdrop-blur-lg" data-aos="flip-left" data-aos-delay="100">
+        <span class="text-6xl">🗓️</span>
+        <div>
+          <h3 class="text-2xl font-bold flex items-center gap-2">LIVE STREAM this sunday <span class="text-sm bg-pink-600 px-3 py-1 rounded-full">🔴 9PM EST</span></h3>
+          <p class="opacity-80 mt-2">building an AI app from scratch — with special guest 🎤🍕. don't miss the pizza party!</p>
+        </div>
+      </div>
+      <!-- card 2: merch drop -->
+      <div class="glass-emoji p-7 rounded-3xl flex gap-5 items-start backdrop-blur-lg" data-aos="flip-right" data-aos-delay="150">
+        <span class="text-6xl">👕</span>
+        <div>
+          <h3 class="text-2xl font-bold">merch store is LIVE <span class="text-cyan-300">✨</span></h3>
+          <p class="opacity-80 mt-2">hoodies, mugs, stickers with glitch effect. use code <span class="bg-slate-800 px-2 py-0.5 rounded font-mono">CREATOR20</span> for 20% off</p>
+        </div>
+      </div>
+      <!-- card 3: milestone -->
+      <div class="glass-emoji p-7 rounded-3xl flex gap-5 items-start backdrop-blur-lg md:col-span-2 justify-center" data-aos="fade-up" data-aos-delay="200">
+        <span class="text-6xl">🏆</span>
+        <div class="text-center md:text-left">
+          <h3 class="text-2xl font-bold">50k subs GIVEAWAY 🎁</h3>
+          <p class="opacity-80 mt-1">we're giving away 3x NVIDIA GPUs + 1-year vps hosting. comment on the latest video to enter! ends in 5 days ⏳</p>
+        </div>
+      </div>
+    </div>
+    <!-- extra emoji banner note -->
+    <div class="mt-14 text-center p-5 rounded-full bg-black/40 border border-dashed border-cyan-400/60" data-aos="fade-up" data-aos-delay="250">
+      <p class="text-lg flex items-center justify-center gap-3 flex-wrap"><span>🎙️ next video: “I let AI control my editor for 24h”</span> <span class="bg-cyan-600 text-sm px-3 py-1 rounded-full">subscribe 🔔</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- Collaboration (refreshed with emoji + animation) -->
+<section class="bg-gradient-to-l from-slate-900 to-slate-950 py-28 px-6">
+  <div class="max-w-5xl mx-auto text-center" data-aos="zoom-in-up">
+    <span class="text-7xl inline-block mb-2">🤝</span>
+    <h2 class="text-4xl font-bold mb-5">Work With Me</h2>
+    <p class="opacity-80 text-xl max-w-2xl mx-auto mb-10">I collaborate with brands for product promotion, website building, and AI tools reviews. <span class="text-cyan-300">let's create 🚀</span></p>
+    <a href="#contact" class="bg-cyan-600 px-12 py-4 rounded-full font-semibold hover:bg-cyan-500 transition-all inline-block shadow-2xl hover:scale-105 text-lg">✨ contact for collaboration ✨</a>
+  </div>
+</section>
+
+<!-- Contact with animation -->
+<section id="contact" class="max-w-3xl mx-auto py-28 px-6">
+  <h2 class="text-4xl font-bold text-center mb-4" data-aos="fade-down"><span class="text-cyan-400">📬</span> ping me <span class="text-cyan-400">📨</span></h2>
+  <p class="text-center opacity-70 mb-12">I reply within 24h (usually faster ⚡)</p>
+  <form class="grid gap-7" data-aos="fade-up" data-aos-duration="800">
+    <input class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700 focus:border-cyan-400 outline-none transition-all" placeholder="your name ✏️"/>
+    <input class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700 focus:border-cyan-400 outline-none transition-all" placeholder="email address 📧"/>
+    <textarea class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700 focus:border-cyan-400 outline-none transition-all" rows="5" placeholder="your message 💬"></textarea>
+    <button class="bg-cyan-600 py-4 rounded-2xl font-semibold hover:bg-cyan-500 transition-all text-lg hover:scale-[1.02] flex items-center justify-center gap-2">🚀 send message 🚀</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black/90 py-8 text-center text-sm opacity-60 border-t border-white/5">
+  <p>© 2026 MyCreatorBrand · all rights reserved · made with 💙 and emojis</p>
+  <p class="mt-1 text-xs">📍 find me on discord / twitter @mycreatorbrand</p>
+</footer>
+
+<!-- AOS script + init -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 900,
+    once: false,      // animate every time you scroll (beautiful)
+    mirror: true,
+    offset: 50,
+    easing: 'ease-out-quad'
+  });
+</script>
+<!-- optional smooth scroll for anchor links (already in css) -->
+</body>
+</html>
